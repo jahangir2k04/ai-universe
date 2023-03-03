@@ -8,7 +8,7 @@ const displayCardData = cards => {
     const universeContainer = document.getElementById('ai-universe-hub-container');
     
     cards.forEach(card => {
-        console.log(card.features);
+        console.log(card.published_in);
         const featureItem = card.features.map(item =>`<li>${item}</li>`).join('');
 
         const cardDiv = document.createElement('div');
@@ -20,7 +20,19 @@ const displayCardData = cards => {
                     <h5 class="card-title fw-bold">Features</h5>
                     <ol class="ps-3">${featureItem}</ol>
                 </div>
-                
+                <div class="card-footer bg-white p-0 d-flex align-items-center">
+                    <div>
+                        <h5 class="card-title fw-bold mt-3 mb-3">${card.name}</h5>
+                        <div class="d-flex gap-2">
+                            <p><span class="material-symbols-outlined">calendar_month<span>
+                            </p>
+                            <p>${card.published_in}</p>
+                        </div>
+                    </div>
+                    <div class="ms-auto">
+                        <span class="material-symbols-outlined text-danger bg-danger-subtle rounded-circle p-2">arrow_right_alt</span>
+                    </div>
+                </div>
             </div>
         `;
         universeContainer.appendChild(cardDiv);
