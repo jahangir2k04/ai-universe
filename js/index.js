@@ -110,9 +110,9 @@ const displayCardDetail = card => {
     // second card
     const secondCard = document.getElementById('second-card');
     secondCard.innerHTML = `
-        <div>
+        <div class="position-relative">
             <img src="${card.image_link[0]}" class="card-img-top" alt="...">
-            <p></p>
+            <button id="acuracy-btn" style="margin-left: 110px; margin-top: 6px;" class="btn btn-danger position-absolute top-0 start-50 z-1 ${card.accuracy.score ? 'd-block' : 'd-none'}">${ card.accuracy.score * 100}% accuracy</button>
         </div>
         <div class="card-body text-center">
             <h5>${card.input_output_examples ? card.input_output_examples[0].input : 'Can you give any example?'}</h5>
