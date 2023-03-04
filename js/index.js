@@ -4,11 +4,13 @@ const loadCardData = async () => {
     const data = await res.json();
     displayCardData(data.data.tools);
 }
+// display  data in card
 const displayCardData = cards => {
     const universeContainer = document.getElementById('ai-universe-hub-container');
     
     cards.forEach(card => {
         console.log(card.published_in);
+        // features data
         const featureItem = card.features.map(item =>`<li>${item}</li>`).join('');
 
         const cardDiv = document.createElement('div');
@@ -22,7 +24,7 @@ const displayCardData = cards => {
                 </div>
                 <div class="card-footer bg-white p-0 d-flex align-items-center">
                     <div>
-                        <h5 class="card-title fw-bold mt-3 mb-3">${card.name}</h5>
+                        <h5 class="card-title fw-bold my-3">${card.name}</h5>
                         <div class="d-flex gap-2">
                             <p><span class="material-symbols-outlined">calendar_month<span>
                             </p>
