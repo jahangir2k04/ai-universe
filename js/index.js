@@ -75,6 +75,7 @@ const loadCardDetail = async (id) => {
 // display card detail
 const displayCardDetail = card => {
     console.log( card.pricing);
+    // first card
     // modal card description
     document.getElementById('modal-card-des').innerText = card.description;
     // plan basic
@@ -104,8 +105,20 @@ const displayCardDetail = card => {
     }
     // modal card integrations
     const cardIntegrationUl = document.getElementById('integrations-div');
-    const integrationLi = card.integrations.map(item =>`<li>${item}</li>`).join('');
-    cardIntegrationUl.innerHTML = integrationLi;
+    cardIntegrationUl.innerHTML = `<ul>${card.integrations ? card.integrations.map(item =>`<li>${item}</li>`).join('') : 'No Data Founded'}</ul>`;
+
+    // second card
+    const secondCard = document.getElementById('second-card');
+    secondCard.innerHTML = `
+        <div>
+            <img src="${card.image_link[0]}" class="card-img-top" alt="...">
+            <p></p>
+        </div>
+        <div class="card-body text-center">
+            <h5>${card.input_output_examples ? card.input_output_examples[0].input : 'Can you give any example?'}</h5>
+            <p></p>
+        </div>
+    `;
 }
 
 loadCardData(6);
