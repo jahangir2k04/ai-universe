@@ -1,13 +1,21 @@
-const loadCardData = async () => {
+const loadCardData = async (limit) => {
     const url = `https://openapi.programming-hero.com/api/ai/tools`;
     const res = await fetch(url);
     const data = await res.json();
-    displayCardData(data.data.tools);
+    displayCardData(data.data.tools, limit);
 }
 // display  data in card
-const displayCardData = cards => {
+const displayCardData = (cards, limit) => {
     const universeContainer = document.getElementById('ai-universe-hub-container');
-    
+    // show by default 6 cards
+    const showAllbtn = document.getElementById('show-all');
+    if(limit && cards.length > 6){
+        cards = cards.slice(0, 6);
+        showAllbtn.classList.remove('d-none')
+    }else{
+        showAllbtn.classList.add('d-none')
+    }
+
     cards.forEach(card => {
         console.log(card.published_in);
         // features data
@@ -43,4 +51,4 @@ const displayCardData = cards => {
 
 
 
-loadCardData();
+loadCardData(6);
