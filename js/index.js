@@ -116,7 +116,7 @@ const displayCardDetail = card => {
         </div>
         <div class="card-body text-center">
             <h5>${card.input_output_examples ? card.input_output_examples[0].input : 'Can you give any example?'}</h5>
-            <p></p>
+            <p>${card.input_output_examples ? card.input_output_examples[0].input : 'No! Not Yet! Take a break!!!'}</p>
         </div>
     `;
 }
