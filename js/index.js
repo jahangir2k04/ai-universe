@@ -7,6 +7,7 @@ const loadCardData = async (limit) => {
 // display  data in card
 const displayCardData = (cards, limit) => {
     const universeContainer = document.getElementById('ai-universe-hub-container');
+    universeContainer.textContent = '';
     // show by default 6 cards
     const showAllbtn = document.getElementById('show-all');
     if(limit && cards.length > 6){
@@ -17,7 +18,6 @@ const displayCardData = (cards, limit) => {
     }
 
     cards.forEach(card => {
-        console.log(card.published_in);
         // features data
         const featureItem = card.features.map(item =>`<li>${item}</li>`).join('');
 
@@ -40,7 +40,9 @@ const displayCardData = (cards, limit) => {
                         </div>
                     </div>
                     <div class="ms-auto">
-                        <span class="material-symbols-outlined text-danger bg-danger-subtle rounded-circle p-2">arrow_right_alt</span>
+                        <button onclick="loadCardDetail('${card.id}')" class="btn border-0" data-bs-toggle="modal" data-bs-target="#cardDetailModal">
+                            <span class="material-symbols-outlined text-danger bg-danger-subtle rounded-circle p-2">arrow_right_alt</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -61,5 +63,49 @@ const toogleSpinner = isLoading => {
     }
 }
 toogleSpinner(true);
+
+// load card detail in modal 
+const loadCardDetail = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayCardDetail(data.data);
+}
+
+// display card detail
+const displayCardDetail = card => {
+    console.log( card.pricing);
+    // modal card description
+    document.getElementById('modal-card-des').innerText = card.description;
+    // plan basic
+    document.getElementById('plan-basic').innerHTML = `
+        <p class="mb-0">${card.pricing ? card.pricing[0].price : 'Free of cost/'}</p>
+        <p class="mb-0">${card.pricing ? card.pricing[0].plan : 'Basic'}</p>
+    `;
+    // plan pro
+    document.getElementById('plan-pro').innerHTML = `
+        <p class="mb-0">${card.pricing ? card.pricing[1].price : 'Free of cost/'}</p>
+        <p class="mb-0">${card.pricing ? card.pricing[1].plan : 'Pro'}</p>
+    `;
+    // plan contact
+    document.getElementById('plan-contact').innerHTML = `
+        <p class="mb-0">${card.pricing ? card.pricing[2].price : 'Free of cost/'}</p>
+        <p class="mb-0">${card.pricing ? card.pricing[2].plan : 'Enterprise'}</p>
+    `;
+    // modal card features
+    const cardFeatureUl = document.getElementById('features-div');
+    cardFeatureUl.textContent = '';
+    for(const feature in card.features){
+        const showFeatures = card.features[feature].feature_name;
+        const li = document.createElement('li');
+        li.innerText = showFeatures;
+        // console.log(li);
+        cardFeatureUl.appendChild(li);
+    }
+    // modal card integrations
+    const cardIntegrationUl = document.getElementById('integrations-div');
+    const integrationLi = card.integrations.map(item =>`<li>${item}</li>`).join('');
+    cardIntegrationUl.innerHTML = integrationLi;
+}
 
 loadCardData(6);
