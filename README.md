@@ -4,5 +4,6 @@
 * HTML
 * Bootstrap
 * JavaScript
+* ES6
 * API
 * DOM
